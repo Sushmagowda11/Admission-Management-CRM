@@ -13,7 +13,15 @@ const dashboardRoutes = require('./routes/dashboard');
 
 const app = express();
 
-app.use(cors({ origin: true }));
+// app.use(cors({ origin: true }));
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    "https://admission-management-crm-phi.vercel.app/"
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -32,7 +40,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-const PORT = process.env.PORT ? Number(process.env.PORT) : 4000;
+const PORT = process.env.PORT ||  4000;
 async function startServer() {
   await initDb();
   app.listen(PORT, () => {
