@@ -108,8 +108,7 @@ export default function AdminPage() {
     supernumeraryComedk: '0',
     supernumeraryManagement: '0',
   });
-  
-// used useMemo
+
   const quotasSum = useMemo(() => {
     const a = Number(seatMatrixForm.kcet || 0);
     const b = Number(seatMatrixForm.comedk || 0);

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import { getMe, logout } from './api';
 import LoginPage from './pages/LoginPage.jsx';
@@ -50,7 +50,7 @@ function AppInner() {
   const [booting, setBooting] = useState(true);
   const nav = useNavigate();
 
-  async function loadCurrentUser() {
+  const loadCurrentUser = useCallback(async () => {
     setBooting(true);
     const token = localStorage.getItem('token');
     if (!token) {
@@ -67,12 +67,11 @@ function AppInner() {
     } finally {
       setBooting(false);
     }
-  }
+  }, []);
 
   useEffect(() => {
     loadCurrentUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loadCurrentUser]);
 
   async function logoutAndRedirect() {
     await logout();

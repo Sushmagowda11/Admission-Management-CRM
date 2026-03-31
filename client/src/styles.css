@@ -82,7 +82,6 @@ textarea {
   outline: none;
 }
 
-/* Dropdown-specific polish */
 select {
   background: rgba(9, 14, 28, 0.92);
   border-color: rgba(255, 255, 255, 0.2);

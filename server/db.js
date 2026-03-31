@@ -43,8 +43,6 @@ async function initDb() {
   await db.collection('seat_matrices').createIndex({ program_id: 1, academic_year_id: 1 }, { unique: true });
   await db.collection('seat_matrix_quotas').createIndex({ seat_matrix_id: 1, quota_type: 1 }, { unique: true });
   await db.collection('admissions').createIndex({ applicant_id: 1 }, { unique: true });
-  // Imported data often has admission_number: null until confirmation.
-  // Use a partial unique index so nulls don't collide.
   await db.collection('admissions').createIndex(
     { admission_number: 1 },
     {

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   adminAcademicYears,
   adminProgramsAll,
@@ -40,7 +40,7 @@ export default function OfficerPage() {
 
   const [allocateForm, setAllocateForm] = useState({
     allotmentNumber: '',
-    quotaTypeOverride: '', // if empty, keep applicant's
+    quotaTypeOverride: '',
   });
 
   const [docsForm, setDocsForm] = useState({
@@ -53,14 +53,18 @@ export default function OfficerPage() {
 
   const [seatAvailability, setSeatAvailability] = useState(null);
 
+  const refreshApplicants = useCallback(async () => {
+    const items = await listApplicants();
+    setApplicants(items);
+  }, []);
+
   useEffect(() => {
     (async () => {
       setPrograms(await adminProgramsAll());
       setAcademicYears(await adminAcademicYears());
       await refreshApplicants();
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [refreshApplicants]);
 
   useEffect(() => {
     if (!msg) return;
@@ -92,12 +96,12 @@ export default function OfficerPage() {
       });
       setSeatAvailability(a);
     })();
-  }, [selectedApplicantId, allocateForm.quotaTypeOverride]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  async function refreshApplicants() {
-    const items = await listApplicants();
-    setApplicants(items);
-  }
+  }, [
+    selectedApplicant?.program_id,
+    selectedApplicant?.academic_year_id,
+    selectedApplicant?.quota_type,
+    allocateForm.quotaTypeOverride,
+  ]);
 
   async function onCreateApplicant() {
     setMsg(null);

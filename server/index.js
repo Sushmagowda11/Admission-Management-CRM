@@ -27,7 +27,6 @@ app.use('/api/applicants', applicantsRoutes);
 app.use('/api/admissions', admissionsRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
-// Generic error handler
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: 'Internal server error' });

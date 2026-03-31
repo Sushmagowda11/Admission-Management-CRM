@@ -11,7 +11,6 @@ function formatAdmissionNumber({
   quotaCategory,
   sequenceNumber,
 }) {
-  // Example: INST/2026/UG/CSE/KCET/0001
   return `${institutionCode}/${academicYear}/${courseLevel}/${branchCode}/${quotaCategory}/${padToFourDigits(
     sequenceNumber,
   )}`;

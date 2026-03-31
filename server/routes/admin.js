@@ -188,7 +188,6 @@ router.post('/seat-matrices', requireRole('ADMIN'), async (req, res) => {
     });
   }
 
-  // Ensure quotas are unique by quota type
   const quotaTypes = new Set();
   for (const quota of quotas) {
     if (quotaTypes.has(quota.quotaType)) return res.status(400).json({ error: 'Duplicate quotaType in quotas' });
