@@ -17,7 +17,7 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://admission-management-crm-phi.vercel.app/"
+    "https://admission-management-crm-phi.vercel.app"
   ],
   credentials: true
 }));

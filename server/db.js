@@ -1,8 +1,12 @@
 const { MongoClient } = require('mongodb');
 const bcrypt = require('bcryptjs');
 
-const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017';
-const mongoDbName = process.env.MONGODB_DB || 'admission_management';
+const mongoUri = process.env.MONGODB_URI;
+const mongoDbName = process.env.MONGODB_DB;
+
+if (!mongoUri || !mongoDbName) {
+  throw new Error("MongoDB environment variables not set");
+}
 
 let client;
 let db;
