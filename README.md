@@ -185,4 +185,3 @@ ChatGPT:
 ## Author
 
 Sushma S
-Junior Software Developer Candidate
